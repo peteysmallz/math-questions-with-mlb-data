@@ -45,6 +45,8 @@ export async function fetchPlayerStats(id) {
     const data = await response.json();
     const parsedData = data.people[0].stats[0].splits.slice(-1).pop().stat;
 
+    console.log(parsedData);
+
     return parsedData;
   }
 }
@@ -62,6 +64,32 @@ export async function fetchTeamRoster(id = 141) {
     const data = await response.json();
     const parsedData = data.stats_sortable_player.queryResults.row;
 
+    console.log(parsedData);
+
     return parsedData;
   }
 }
+
+/**
+ * Returns an array of all MLB team's info
+ * @param
+ * @return {array}
+ */
+export async function fetchTeams() {
+  const TEAMS_URL = `http://lookup-service-prod.mlb.com/json/named.team_all_season.bam?all_star_sw=%27N%27&sport_code=%27mlb%27&sort_order=%27name_asc%27&season=2019`;
+  const response = await fetch(TEAMS_URL);
+
+  if (response.status === 200) {
+    const data = await response.json();
+    const parsedData = data.team_all_season.queryResults.row;
+
+    console.log(parsedData);
+
+    return parsedData;
+  }
+}
+
+// "http://losangeles.angels.mlb.com/images/players/525x330/545361.jpg"
+
+
+
